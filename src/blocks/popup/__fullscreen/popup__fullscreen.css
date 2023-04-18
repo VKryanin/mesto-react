@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: none !important;
 }
 
 .popup__fullscreen_opened {

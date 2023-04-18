@@ -1,17 +1,16 @@
 .popup {
     width: 100%;
     height: 100%;
-    position: fixed;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .5);
+    display: flex;
     visibility: hidden;
     opacity: 0;
-    transition: all .5s ease;
-    display: flex;
+    transition: visibility .6s, opacity .6s ease;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .popup_opened {
@@ -20,7 +19,11 @@
     z-index: 1;
 }
 
-.popup_opened .popup__container  {
+.popup_opened .popup__container {
     visibility: visible;
     /* z-index: 2; */
+}
+
+.popup_iamge {
+    background: rgba(0, 0, 0, 0.9);
 }

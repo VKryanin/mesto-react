@@ -1,15 +1,18 @@
 .popup__submit-button {
+    margin: 0 auto;
+    padding: 0;
     width: 358px;
     height: 50px;
-    align-items: center;
-    background-color: #000;
-    color: #fff;
-    border: none;
+    box-sizing: border-box;
     border-radius: 2px;
+    border: none;
+    background-color: #000;
+    color: #FFF;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    transition: all .5s ease;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
     cursor: pointer;
 }
 
@@ -17,21 +20,21 @@
     opacity: .8;
 }
 
-@media screen and (max-width:880px) {
+@media screen and (max-width: 644px) {
     .popup__submit-button {
+        width: 238px;
         font-size: 14px;
         line-height: 17px;
-        width: 238px;
-        /* width: 100%; */
     }
 }
 
 .popup__button_disabled {
-    background-color: #fff;
-    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid #000;
     color: #000;
-    border: 1px solid #000000;
-    cursor: default;
+    opacity: .2;
 }
 
 .popup__button_disabled:hover {
