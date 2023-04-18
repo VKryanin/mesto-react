@@ -4,7 +4,7 @@ import { config } from '../utils/apiConfig'
 import { Card } from "./Card";
 
 
-export function Main(isEditProfilePopupOpen) {
+export function Main(props) {
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
@@ -18,6 +18,7 @@ export function Main(isEditProfilePopupOpen) {
                 setUserAvatar(profileData.avatar)
                 setCards(cardData)
             })
+            .catch((err) => { console.log(`Возникла глобальная ошибка, ${err}`) })
     }, [])
     return (
         <main>
@@ -31,7 +32,7 @@ export function Main(isEditProfilePopupOpen) {
                         type="button"
                         className="profile__avatar-edit"
                         aria-label="Редактировать аватар профиля"
-                        onClick={() => !isEditProfilePopupOpen} />
+                        onClick={props.onEditAvatar} />
                     <div className="profile__info">
                         <h1 className="profile__title">
                             {userName}
@@ -40,6 +41,7 @@ export function Main(isEditProfilePopupOpen) {
                             type="button"
                             className="profile__button-edit profile__button"
                             title="Редактировать профиль"
+                            onClick={props.onEditProfile}
                         />
                         <p className="profile__subtitle">
                             {userDescription}
@@ -49,11 +51,21 @@ export function Main(isEditProfilePopupOpen) {
                 <button
                     type="button"
                     className="profile__button-add profile__button"
-                    title="Добавить фотографию" />
+                    title="Добавить фотографию"
+                    onClick={props.onAddPlace} />
             </section>
             <section className="elements">
                 <ul className="elements__list">
-                    {cards.map((card, id) => < Card card={card} key={id} />
+                    {cards.map((card) => {
+                    return < Card
+                        link={card.link}
+                        name={card.name}
+                        likeCount={card.likes.length}
+                        onCardClick={props.onCardClick}
+                        onCardDelete={props.onCardDelete}
+                        card={card}
+                        key={card._id}
+                    />}
                     )}
                 </ul>
             </section>
