@@ -1,0 +1,26 @@
+
+.popup__container {
+    padding: 34px 36px 37px;
+    width: 430px;
+    height: 330px;
+    
+    transition: all .5s ease;
+}
+@media screen and (max-width: 644px) {
+    .popup__container {
+        padding: 25px 22px 25px 22px;
+        max-width: 282px;
+    }
+}
+
+@media screen and (max-width:880px) {
+    .popup__container {
+        width: 282px;
+        height: 322px;
+        padding: 25px 22px 25px;
+        margin: 123px auto;
+    }
+    .popup__container .popup__text-error {
+        margin-bottom: 0;
+    }
+}
