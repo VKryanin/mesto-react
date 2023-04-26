@@ -1,3 +1,5 @@
+import { config } from '../utils/apiConfig'
+
 export class Api {
     constructor(config) {
         this._url = config.url;
@@ -15,7 +17,6 @@ export class Api {
     }
 
     getProfile() {
-
         return fetch(`${this._url}users/me/`, {
             headers: this._headers,
         })
@@ -24,11 +25,11 @@ export class Api {
             })
     }
 
-    patchUserData(profileData) {
+    patchUserData(userName, userAbout) {
         return fetch(`${this._url}users/me/`, {
             headers: this._headers,
             method: 'PATCH',
-            body: JSON.stringify({ name: profileData.username, about: profileData.description })
+            body: JSON.stringify({ name: userName, about: userAbout })
         })
             .then(res => {
                 return this._getResponseData(res);
@@ -86,14 +87,21 @@ export class Api {
             })
     }
 
-    removeCardLike(cardId) {
-        return fetch(`${this._url}cards/${cardId}/likes/`, {
+    changeLikeCardStatus (cardId, isLiked) {
+        if (isLiked) {
+          return fetch(`${this._url}cards/${cardId}/likes`, {
             headers: this._headers,
-            method: 'DELETE'
-        })
-            .then(res => {
-                return this._getResponseData(res);
-            })
-    }
-
+            method: 'PUT',
+          })
+          .then(res => { return this._processingServerResponse(res); })
+        } else {
+          return fetch(`${this._link}cards/${cardId}/likes`, {
+            headers: this._headers,
+            method: 'DELETE',
+          })
+          .then(res => { return this._processingServerResponse(res); })
+        }
+      }
 }
+
+export const api = new Api(config);

@@ -1,32 +1,17 @@
-import { useEffect, useState } from "react";
-import { Api } from "../utils/Api";
-import { config } from '../utils/apiConfig'
+import React, { useContext } from 'react';
 import { Card } from "./Card";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 export function Main(props) {
-    const [userName, setUserName] = useState('');
-    const [userDescription, setUserDescription] = useState('');
-    const [userAvatar, setUserAvatar] = useState('');
-    const [cards, setCards] = useState([])
-    const api = new Api(config);
-    useEffect(() => {
-        Promise.all([api.getProfile(), api.getCards()])
-            .then(([profileData, cardData]) => {
-                setUserName(profileData.name)
-                setUserDescription(profileData.about)
-                setUserAvatar(profileData.avatar)
-                setCards(cardData)
-            })
-            .catch((err) => { console.log(`Возникла глобальная ошибка, ${err}`) })
-    }, [])
+    const userData = useContext(CurrentUserContext);
     return (
         <main>
             <section className="profile">
                 <div className="profile__container">
                     <img
                         className="profile__avatar"
-                        src={userAvatar}
+                        src={userData.avatar}
                         alt="Аватар пользователя" />
                     <button
                         type="button"
@@ -35,7 +20,7 @@ export function Main(props) {
                         onClick={props.onEditAvatar} />
                     <div className="profile__info">
                         <h1 className="profile__title">
-                            {userName}
+                            {userData.name}
                         </h1>
                         <button
                             type="button"
@@ -44,7 +29,7 @@ export function Main(props) {
                             onClick={props.onEditProfile}
                         />
                         <p className="profile__subtitle">
-                            {userDescription}
+                            {userData.about}
                         </p>
                     </div>
                 </div>
@@ -56,16 +41,17 @@ export function Main(props) {
             </section>
             <section className="elements">
                 <ul className="elements__list">
-                    {cards.map((card) => {
-                    return < Card
-                        link={card.link}
-                        name={card.name}
-                        likeCount={card.likes.length}
-                        onCardClick={props.onCardClick}
-                        onCardDelete={props.onCardDelete}
-                        card={card}
-                        key={card._id}
-                    />}
+                    {props.cards.map((card) => {
+                        return < Card
+                            link={card.link}
+                            name={card.name}
+                            likeCount={card.likes.length}
+                            onCardClick={props.onCardClick}
+                            onCardDelete={props.onCardDelete}
+                            card={card}
+                            key={card._id}
+                        />
+                    }
                     )}
                 </ul>
             </section>
