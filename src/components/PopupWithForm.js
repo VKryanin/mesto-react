@@ -12,7 +12,10 @@ export function PopupWithForm(props) {
         <h2 className="popup__title">{props.title}</h2>
         <form name={props.type} className="popup__form" noValidate>
           {props.children}
-          <button type="submit" className="popup__submit-button" aria-label="Сохранить">{ props.buttonText || 'Сохранить' }</button>
+          <button
+            type="submit"
+            className="popup__submit-button"
+            aria-label="Сохранить">{props.buttonText || 'Сохранить'}</button>
         </form>
       </div>
     </div>
