@@ -82,13 +82,13 @@ export class Api {
                 headers: this._headers,
                 method: 'PUT',
             })
-                .then(res => { return this._processingServerResponse(res); })
+                .then(res => { return this._getResponseData(res); })
         } else {
             return fetch(`${this._url}cards/${cardId}/likes`, {
                 headers: this._headers,
                 method: 'DELETE',
             })
-                .then(res => { return this._processingServerResponse(res); })
+                .then(res => { return this._getResponseData(res); })
         }
     }
 }
