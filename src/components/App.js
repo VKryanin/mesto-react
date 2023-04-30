@@ -57,15 +57,16 @@ function App() {
   // лайк карточки
   function handleCardLike(card) {
     const isLiked = card.likes.some(cardItem => cardItem._id === currentUser._id);
-    console.log(isLiked);
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((cardsItem) => {
         setCards((state) => state.map((cardItem) => cardItem._id === card._id ? cardsItem : cardItem))
       })
       .catch((err) => { console.log(`Возникла ошибка при обработке лайков, ${err}`) })
   }
+
   // доб. карточки
   function handleAddCard(cardItem) {
+    console.log(cardItem);
     api.addNewCard(cardItem.name, cardItem.link)
       .then((card) => { setCards([card, ...cards]); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при добавлении новой карточки, ${err}`) })
