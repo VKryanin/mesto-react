@@ -55,7 +55,7 @@ export class Api {
             })
     }
     // добавление карточки
-    addNewCard({ name, link }) {
+    addNewCard( name, link ) {
         return fetch(`${this._url}cards`, {
             headers: this._headers,
             method: 'POST',

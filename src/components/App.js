@@ -71,7 +71,6 @@ function App() {
   }
   // обн. пользователя
   function handleUpdateUser(userData) {
-    console.log(userData.name, userData.about);
     api.patchUserData(userData.name, userData.about)
       .then((res) => { setCurrentUser(res); closeAllPopups() })
       .catch((err) => { console.log(`Возникла ошибка при редактировании профиля, ${err}`) })

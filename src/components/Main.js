@@ -47,6 +47,7 @@ export function Main(props) {
                             name={card.name}
                             likeCount={card.likes.length}
                             onCardClick={props.onCardClick}
+                            onCardLike={props.onCardLike}
                             onCardDelete={props.onCardDelete}
                             card={card}
                             key={card._id}
