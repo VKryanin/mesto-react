@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export function Card(props) {
+
     function handleClick() { props.onCardClick(props.card) }
     function handleDelete() { props.onCardDelete(props.card) }
+    const userItem = useContext(CurrentUserContext);
+    const isOwner = props.card.owner._id === userItem._id;
     return (
         <li className="elements__element">
             <img className="elements__photo"
@@ -16,7 +20,7 @@ export function Card(props) {
                     <p className="cards__like-count">{props.likeCount > 0 ? props.likeCount : null}</p>
                 </div>
             </div>
-            <button className="elements__delete" onClick={handleDelete}></button>
+            {isOwner && <button className="elements__delete" onClick={handleDelete}></button>}
         </li>
     )
 }
