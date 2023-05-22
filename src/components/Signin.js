@@ -1,13 +1,15 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import * as mestoAuth from '../utils/MestoAuth'
 import { useState, useEffect } from "react";
+import { Message } from "./Message";
 
 export function Signin({ handleLogin }) {
     const [formValue, setFormValue] = useState({
         email: '',
         password: ''
     });
-
+    const [status, setStatus] = useState('')
+    const [style, setStyle] = useState({ display: 'none' })
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
@@ -40,12 +42,14 @@ export function Signin({ handleLogin }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!formValue.password || !formValue.email) {
             setErrorMessage('Both fields are required');
             return;
         }
 
         const { email, password } = formValue;
+
 
         mestoAuth.authorize(email, password)
             .then(data => {
@@ -59,13 +63,17 @@ export function Signin({ handleLogin }) {
                 }
             })
             .catch(err => {
-                console.log(err.error);
-                setErrorMessage(err);
+                setStatus(false);
+                setErrorMessage('Не корректный Email или пароль');
+                setStyle({
+                    display: 'block'
+                });
             });
     }
 
     return (
         <div onSubmit={handleSubmit} className="authForm__container">
+            <Message status={status} styles={style} error={errorMessage} />
             <h2 className="authForm__title">Вход</h2>
             <form className="authForm__form">
                 <input id="email" required name="email" type="email" autoComplete="login" value={formValue.email} placeholder="Email"
