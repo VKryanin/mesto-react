@@ -9,7 +9,7 @@ import { PopupAddCard } from "./PopupAddCard";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from "../utils/Api";
 
-function Content({handleExit: handleExit, title: title}) {
+function Content() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
