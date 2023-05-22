@@ -25,32 +25,30 @@ export function Signup() {
     const { email, password } = formValue;
     mestoAuth.register(email, password)
       .then((res) => {
-        if (res.status != 400) {
+        if (res.status !== 400) {
           navigate('/sign-in');
           setStatus(true);
-          setStyle({
-            display: 'block'
-          })
         } else {
           res.json().then(res_2 => {
+            setStatus(false);
             if (res_2.error) {
-              setStatus(false)
-              setErrorMessage(res_2.error)
-              setStyle({
-                display: 'block'
-              })
+              setErrorMessage(res_2.error);
+            } else {
+              setErrorMessage(res_2.message);
             }
-            else {
-              setStatus(false)
-              setErrorMessage(res_2.message)
-              setStyle({
-                display: 'block'
-              })
-            }
-
-          })
+          });
         }
+        setStyle({
+          display: 'block'
+        });
       })
+      .catch(() => {
+        setStatus(false);
+        setErrorMessage('Произошла ошибка при регистрации');
+        setStyle({
+          display: 'block'
+        });
+      });
   }
 
   return (
