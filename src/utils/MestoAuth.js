@@ -9,7 +9,8 @@ export const register = (email, password) => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then(res => res.ok ? res.json() : console.log(res));
+      // .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
+      .then(res => res)
   };
 
 export const authorize = (email, password) => {

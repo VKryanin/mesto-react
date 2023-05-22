@@ -4,7 +4,7 @@ import fail from '../images/fail.svg';
 import succsess from '../images/Union.svg';
 import { useState } from 'react';
 
-export function Message({ status: status, styles: style }) {
+export function Message({ status: status, styles: style, error: error }) {
     const [isOpen, setIsOpen] = useState(true);
 
     const handleClose = () => {
@@ -30,8 +30,7 @@ export function Message({ status: status, styles: style }) {
                 <div className='message__bg'></div>
                 <div className="message__popup">
                     <img src={fail} alt="Не удачно" />
-                    <p>Что-то пошло не так!
-                        Попробуйте ещё раз.</p>
+                    <p>{error}</p>
                     <img onClick={handleClose} className='message__close' src={close} alt="close" />
                 </div>
             </div>

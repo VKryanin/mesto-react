@@ -59,7 +59,7 @@ export function Signin({ handleLogin }) {
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.error);
                 setErrorMessage(err);
             });
     }

@@ -11,7 +11,7 @@ export function Signup() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const [status, setStatus] = useState('')
-  const [style, setStyle] = useState({display: 'none'})
+  const [style, setStyle] = useState({ display: 'none' })
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValue({
@@ -24,26 +24,29 @@ export function Signup() {
     e.preventDefault();
     const { email, password } = formValue;
     mestoAuth.register(email, password)
-      .then(() => {
-        navigate('/sign-in');
-        setStatus(true);
-        setStyle({
-          display: 'block'
-        })
+      .then((res) => {
+        if (res.status != 400) {
+          navigate('/sign-in');
+          setStatus(true);
+          setStyle({
+            display: 'block'
+          })
+        } else {
+          res.json().then(res_2 => {
+            console.log(res_2.error)
+            setStatus(false)
+            setErrorMessage(res_2.error)
+            setStyle({
+              display: 'block'
+            })
+          })
+        }
       })
-      .catch(err => {
-        setStatus(false)
-        setErrorMessage(err)
-        setStyle({
-          display: 'block'
-        })
-        console.log(err);
-      });
   }
 
   return (
     <div className="authForm__container">
-      <Message status={status} styles={style}/>
+      <Message status={status} styles={style} error={errorMessage}/>
       <h2 className="authForm__title">Регистрация</h2>
       <form onSubmit={handleSubmit} className="authForm__form">
         <input id="email" name="email" type="email" autoComplete="email" value={formValue.email}
