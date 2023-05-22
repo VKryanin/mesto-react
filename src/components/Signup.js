@@ -33,12 +33,21 @@ export function Signup() {
           })
         } else {
           res.json().then(res_2 => {
-            console.log(res_2.error)
-            setStatus(false)
-            setErrorMessage(res_2.error)
-            setStyle({
-              display: 'block'
-            })
+            if (res_2.error) {
+              setStatus(false)
+              setErrorMessage(res_2.error)
+              setStyle({
+                display: 'block'
+              })
+            }
+            else {
+              setStatus(false)
+              setErrorMessage(res_2.message)
+              setStyle({
+                display: 'block'
+              })
+            }
+
           })
         }
       })
@@ -46,7 +55,7 @@ export function Signup() {
 
   return (
     <div className="authForm__container">
-      <Message status={status} styles={style} error={errorMessage}/>
+      <Message status={status} styles={style} error={errorMessage} />
       <h2 className="authForm__title">Регистрация</h2>
       <form onSubmit={handleSubmit} className="authForm__form">
         <input id="email" name="email" type="email" autoComplete="email" value={formValue.email}
