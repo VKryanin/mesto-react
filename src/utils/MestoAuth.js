@@ -12,13 +12,13 @@ export const register = (email, password) => {
       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`));
   };
 
-export const authorize = (identifier, password) => {
+export const authorize = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({identifier, password})
+        body: JSON.stringify({email, password})
     })
     .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
 };

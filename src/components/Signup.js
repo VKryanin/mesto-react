@@ -23,7 +23,7 @@ export function Signup() {
         const { email, password } = formValue;
         mestoAuth.register(email, password)
             .then(() => {
-                navigate('/signin');
+                navigate('/sign-in');
             })
             .catch(err => setErrorMessage(err));
     }

@@ -55,6 +55,7 @@ export function Signin({ handleLogin }) {
                     handleLogin(data.user);
                     const url = location.state?.backUrl || '/content';
                     navigate(url);
+                    console.log(email, password);
                 }
             })
             .catch(err => {
