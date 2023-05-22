@@ -17,9 +17,6 @@ function App() {
     localStorage.clear()
     setLoggedIn(false)
   }
-
-
-
   return (
     <>
       <Routes>

@@ -66,3 +66,8 @@
 @import url(./blocks/authForm/__title/authForm__title.css);
 @import url(./blocks/authForm/__form/authForm__form.css);
 @import url(./blocks/authForm/__button-container/authForm__button-container.css);
+
+/* message  */
+@import url(./blocks/message/Message.css);
+@import url(./blocks/message/__popup/message__popup.css);
+@import url(./blocks/message/__close/message__close.css);
