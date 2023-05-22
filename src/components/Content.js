@@ -9,7 +9,7 @@ import { PopupAddCard } from "./PopupAddCard";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from "../utils/Api";
 
-function Content() {
+function Content({handleExit: handleExit, title: title}) {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -92,7 +92,7 @@ function Content() {
   return (
     < CurrentUserContext.Provider value={currentUser} >
       <>
-        < Header />
+      < Header handleExit={handleExit} title={title}/>
         < Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}

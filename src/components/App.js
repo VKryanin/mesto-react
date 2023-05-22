@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Content from "./Content";
+import { Header } from "./Header";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Signin } from "./Signin";
 import { Signup } from "./Signup";
@@ -12,25 +13,33 @@ function App() {
   const handleLogin = () => {
     setLoggedIn(true);
   }
+  function handleExit() {
+    localStorage.clear()
+    setLoggedIn(false)
+  }
 
-    useEffect(()=> {
-      console.log(loggedIn);
-    }, loggedIn)
+  function moveToLogin() {
+    console.log(123);
+    return <Navigate to='/sign-in'/>
+  }
 
   return (
-    <Routes>
-      <Route path="/content" element={<ProtectedRoute element={Content} loggedIn={loggedIn} />} />
-      <Route path="/sign-in" element={
-        <div className="signinContainer">
-          <Signin handleLogin={handleLogin} />
-        </div>} />
-      <Route path="/sign-up" element={
-        <div className="signupContainer">
-          <Signup />
-        </div>} />
-      <Route path="/" element={loggedIn ? <Navigate to='/content' /> : <Navigate to='/sign-in' replace />} />
-    </Routes>
-
+    <>
+      <Routes>
+        <Route path="/content" element={<ProtectedRoute element={Content} loggedIn={loggedIn} handleExit={handleExit} title={"Выйти"} />} />
+        <Route path="/sign-in" element={
+          <div className="signinContainer">
+            < Header title={"Регистрация"} />
+            <Signin />
+          </div>} />
+        <Route path="/sign-up" element={
+          <div className="signupContainer">
+            < Header title={"Войти"} handleEvent={moveToLogin} />
+            <Signup />
+          </div>} />
+        <Route path="/" element={loggedIn ? <Navigate to='/content' /> : <Navigate to='/sign-in' replace />} />
+      </Routes>
+    </>
   )
 }
 

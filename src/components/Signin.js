@@ -14,10 +14,10 @@ export function Signin({ handleLogin }) {
 
     const tokenCheck = () => {
         const jwt = localStorage.getItem('jwt');
+        
         if (jwt) {
             mestoAuth.getContent(jwt)
                 .then(user => {
-                    console.log('location', location);
                     const url = location.state?.backUrl || '/content';
                     handleLogin(user)
                     navigate(url)
@@ -40,7 +40,6 @@ export function Signin({ handleLogin }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!formValue.password || !formValue.email) {
             setErrorMessage('Both fields are required');
             return;
@@ -50,12 +49,13 @@ export function Signin({ handleLogin }) {
 
         mestoAuth.authorize(email, password)
             .then(data => {
-                if (data.jwt) {
-                    localStorage.setItem('jwt', data.jwt);
-                    handleLogin(data.user);
+                if (data.token) {
+                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem('user', email);
+                    handleLogin({email, password});
                     const url = location.state?.backUrl || '/content';
                     navigate(url);
-                    console.log(email, password);
+                    console.log({email, password});
                 }
             })
             .catch(err => {
