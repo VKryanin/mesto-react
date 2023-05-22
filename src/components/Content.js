@@ -92,7 +92,6 @@ function Content({handleExit: handleExit, title: title}) {
   return (
     < CurrentUserContext.Provider value={currentUser} >
       <>
-      < Header handleExit={handleExit} title={title}/>
         < Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}

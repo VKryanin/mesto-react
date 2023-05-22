@@ -20,21 +20,29 @@ function App() {
 
   function moveToLogin() {
     console.log(123);
-    return <Navigate to='/sign-in'/>
+    <Navigate to='/sign-in'/>
+  }
+
+  function moveToLogup() {
+    console.log(321);
+    <Navigate to='/sign-up'/>
   }
 
   return (
     <>
       <Routes>
-        <Route path="/content" element={<ProtectedRoute element={Content} loggedIn={loggedIn} handleExit={handleExit} title={"Выйти"} />} />
+         <Route path="/content" element={<Header handleEvent={handleExit} title={'Выход'}/>}/>
+         <Route path="/sign-up" element={<Header handleEvent={moveToLogin} title={'Войти'}/>}/>
+         <Route path="/sign-in" element={<Header handleEvent={moveToLogup} title={'Регистрация'}/>}/>
+      </Routes>
+      <Routes>
+        <Route path="/content" element={<ProtectedRoute element={Content} loggedIn={loggedIn} />} />
         <Route path="/sign-in" element={
           <div className="signinContainer">
-            < Header title={"Регистрация"} />
-            <Signin />
+            <Signin handleLogin={handleLogin}/>
           </div>} />
         <Route path="/sign-up" element={
           <div className="signupContainer">
-            < Header title={"Войти"} handleEvent={moveToLogin} />
             <Signup />
           </div>} />
         <Route path="/" element={loggedIn ? <Navigate to='/content' /> : <Navigate to='/sign-in' replace />} />
